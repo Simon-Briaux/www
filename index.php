@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vitrine Articles</title>
+  <title>Pernois Materiaux</title>
+  <link rel="icon" href="Images/Logo.jpg" type="image/jpg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,6 +26,11 @@
         <h1>Exemple de titre</h1>
         <p>Découvrer tout nos articles</p>
     </section>
+
+    <div class="articles-header">
+        <h2>Articles</h2>
+        <a href="articles.php" class="btn btn-all">Voir tout →</a>
+    </div>
 
     <!-- Section Articles -->
     <section id="articles" class="grid">
