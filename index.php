@@ -40,19 +40,16 @@
             [
                 'title' => 'PLanche de coffrage',
                 'tag' => 'Bois',
-                'link' => 'article.php',
                 'image' => 'Images/coffrage.jpg',
             ],
             [
                 'title' => 'Sac de ciments',
                 'tag' => 'Poudre',
-                'link' => 'article.php',
                 'image' => 'Images/ciment.jpg',
             ],
             [
                 'title' => 'Sable 04',
                 'tag' => 'Agrégats',
-                'link' => 'article.php',
                 'image' => 'Images/sable.jpg',
             ]
         ];
@@ -70,8 +67,6 @@
             echo '<div class="title">'.$a['title'].'</div>';
             echo '<p class="excerpt">'.($a['excerpt'] ?? '').'</p>';
             echo '<div class="meta">';
-            echo '<span>'.($a['date'] ?? '').'</span>';
-            echo '<a class="btn" href="'.$a['link'].'">Lire →</a>';
             echo '</div>'; // meta
             echo '</div>'; // content
             echo '</article>';

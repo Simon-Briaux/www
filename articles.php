@@ -60,10 +60,6 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <span class="tag"><?= htmlspecialchars($a['mot_classement']) ?></span>
 
                         <div class="title"><?= htmlspecialchars($a['nom']) ?></div>
-
-                        <div class="meta">
-                            <a class="btn" href="article.php?id=<?= $a['id'] ?>">Voir →</a>
-                        </div>
                     </div>
 
                 </article>

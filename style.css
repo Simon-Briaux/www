@@ -110,17 +110,59 @@ nav a:hover {
    CARD ARTICLE
    ========================= */
 .card {
-  background: white;
-  border: 2px solid var(--green-main);
-  border-radius: 14px;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
+    background: var(--white-bg);
+    border-radius: 14px;
+    padding: 1.6rem;
+    min-height: 170px;
+
+    border: 2px solid var(--green-main);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        background-color 0.25s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+    border-color: var(--yellow-main);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
 }
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card::after {
+    position: absolute;
+    bottom: 18px;
+    right: 22px;
+    font-size: 1.4rem;
+    color: #f0b429;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.card .title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark-text);
+    line-height: 1.3;
+}
+
 
 /* Image article */
 .thumb {
