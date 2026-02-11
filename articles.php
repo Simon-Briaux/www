@@ -119,6 +119,11 @@ $tags = $stmtTags->fetchAll(PDO::FETCH_COLUMN);
     </div>
 </footer>
 
+<button id="scrollTopBtn" title="Retour en haut">
+    ↑
+</button>
+
+
 <script src="main.js"></script>
 </body>
 </html>

@@ -272,8 +272,8 @@ footer {
 
 .search-bar input {
     width: 100%;
-    max-width: 420px;
-    padding: 0.8rem 1rem;
+    max-width: 1000px;
+    padding: 1.2rem 12rem;
 
     border-radius: 999px;
     border: 2px solid var(--green-main);
@@ -303,7 +303,7 @@ footer {
 }
 
 .dropdown-btn {
-    padding: 0.6rem 1rem;
+    padding: 1.2rem 6rem;
     border-radius: 8px;
     border: 2px solid var(--green-main);
     background: var(--white-bg);
@@ -351,3 +351,28 @@ footer {
     cursor: pointer;
 }
 
+/* BOUTON RETOUR HAUT */
+#scrollTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--green-main);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 200;
+}
+
+#scrollTopBtn:hover {
+    background-color: var(--green-light);
+    transform: translateY(-4px);
+}
