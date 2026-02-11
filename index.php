@@ -12,7 +12,7 @@
   <div class="container nav">
     <div class="brand">Pernois<span>Materiaux</span></div>
     <nav>
-      <a href="index.php">Articles</a>
+      <a href="articles.php">Articles</a>
       <a href="#about">À propos</a>
       <a href="#contact">Contact</a>
     </nav>

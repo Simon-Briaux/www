@@ -10,6 +10,11 @@ require_once __DIR__ . '/bdd.php';
 // Récupération de tous les articles
 $stmt = $pdo->query("SELECT * FROM article");
 $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupération des catégories uniques
+$stmtTags = $pdo->query("SELECT DISTINCT mot_classement FROM article");
+$tags = $stmtTags->fetchAll(PDO::FETCH_COLUMN);
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,6 +22,7 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tous les articles - Pernois Matériaux</title>
+    <link rel="icon" href="Images/Logo.jpg" type="image/jpg">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,9 +32,8 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="brand">Pernois<span>Materiaux</span></div>
         <nav>
             <a href="index.php">Accueil</a>
-            <a href="articles.php">Articles</a>
-            <a href="#about">À propos</a>
-            <a href="#contact">Contact</a>
+            <a href="index.php#about">À propos</a>
+            <a href="index.php#contact">Contact</a>
         </nav>
     </div>
 </header>
@@ -42,14 +47,40 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
     <!-- BARRE DE RECHERCHE -->
-    <div class="search-bar">
-        <input 
-            type="text" 
-            id="searchInput"
-            placeholder="Rechercher un matériau, une catégorie..."
-            autocomplete="off"
-        >
+   <div class="filters-container">
+
+        <!-- Recherche -->
+        <div class="search-bar">
+            <input 
+                type="text" 
+                id="searchInput"
+                placeholder="Rechercher un matériau..."
+                autocomplete="off"
+            >
+        </div>
+
+        <!-- Menu déroulant catégories -->
+        <div class="dropdown">
+            <button type="button" id="dropdownBtn" class="dropdown-btn">
+                Catégories ▼
+            </button>
+
+            <div id="dropdownMenu" class="dropdown-menu">
+                <?php foreach ($tags as $tag): ?>
+                    <label class="dropdown-item">
+                        <input 
+                            type="checkbox" 
+                            class="filter-checkbox"
+                            value="<?= strtolower($tag) ?>"
+                        >
+                        <?= htmlspecialchars($tag) ?>
+                    </label>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
     </div>
+
 
     <!-- ARTICLES -->
     <section id="articles" class="grid">

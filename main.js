@@ -47,3 +47,56 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const input = document.getElementById("searchInput");
+    const cards = document.querySelectorAll(".card-link");
+    const checkboxes = document.querySelectorAll(".filter-checkbox");
+
+    const dropdownBtn = document.getElementById("dropdownBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    // Ouvrir / fermer menu
+    dropdownBtn.addEventListener("click", () => {
+        dropdownMenu.classList.toggle("active");
+    });
+
+    // Fermer si clic extérieur
+    document.addEventListener("click", (e) => {
+        if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.classList.remove("active");
+        }
+    });
+
+    function filterArticles() {
+        const query = input.value.toLowerCase().trim();
+
+        const selectedTags = Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        cards.forEach(cardLink => {
+            const card = cardLink.querySelector(".card");
+            const nom = card.dataset.nom;
+            const tag = card.dataset.tag;
+
+            const matchSearch =
+                nom.includes(query) ||
+                tag.includes(query);
+
+            const matchTag =
+                selectedTags.length === 0 ||
+                selectedTags.includes(tag);
+
+            cardLink.style.display =
+                matchSearch && matchTag ? "block" : "none";
+        });
+    }
+
+    input.addEventListener("input", filterArticles);
+    checkboxes.forEach(cb =>
+        cb.addEventListener("change", filterArticles)
+    );
+
+});
