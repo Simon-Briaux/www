@@ -1,23 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pernois Materiaux</title>
-  <link rel="icon" href="Images/Logo.jpg" type="image/jpg">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header>
-  <div class="container nav">
-    <div class="brand">Pernois<span>Materiaux</span></div>
-    <nav>
-      <a href="articles.php">Articles</a>
-      <a href="#about">À propos</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
+
+<?php
+$pageTitle = "Pernois Matériaux";
+require_once "header.php";
+?>
+
 
 <main class="container">
 
@@ -90,11 +78,7 @@
 
 </main>
 
-<footer>
-  <div class="container">
-    <p>© 2026 — Pernois materiaux</p>
-  </div>
-</footer>
-<script src="main.js"></script>
+<?php require_once "footer.php"; ?>
+
 </body>
 </html>

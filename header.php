@@ -1,0 +1,38 @@
+<?php
+// Sécurité minimale (optionnel mais propre)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title><?= isset($pageTitle) ? $pageTitle : "Pernois Matériaux" ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Images/Logo.jpg" type="image/jpg">
+    <!-- SEO basique -->
+    <meta name="description" content="Pernois Matériaux - Vente de matériaux de construction">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<header>
+    <div class="container nav">
+        <div class="brand">
+            <a>
+                Pernois<span>Materiaux</span>
+            </a>
+        </div>
+
+        <nav>
+            <a href="index.php">Accueil</a>
+            <a href="articles.php">Articles</a>
+            <a href="index.php#about">À propos</a>
+            <a href="index.php#contact">Contact</a>
+        </nav>
+    </div>
+</header>

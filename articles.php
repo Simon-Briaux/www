@@ -16,27 +16,11 @@ $stmtTags = $pdo->query("SELECT DISTINCT mot_classement FROM article");
 $tags = $stmtTags->fetchAll(PDO::FETCH_COLUMN);
 
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tous les articles - Pernois Matériaux</title>
-    <link rel="icon" href="Images/Logo.jpg" type="image/jpg">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-<header>
-    <div class="container nav">
-        <div class="brand">Pernois<span>Materiaux</span></div>
-        <nav>
-            <a href="index.php">Accueil</a>
-            <a href="index.php#about">À propos</a>
-            <a href="index.php#contact">Contact</a>
-        </nav>
-    </div>
-</header>
+<?php
+$pageTitle = "Tous les articles - Pernois Matériaux";
+require_once "header.php";
+?>
 
 <main class="container">
 
@@ -113,17 +97,14 @@ $tags = $stmtTags->fetchAll(PDO::FETCH_COLUMN);
 
 </main>
 
-<footer>
-    <div class="container">
-        <p>© 2026 — Pernois Matériaux</p>
-    </div>
-</footer>
+
 
 <button id="scrollTopBtn" title="Retour en haut">
     ↑
 </button>
 
 
-<script src="main.js"></script>
+<?php require_once "footer.php"; ?>
+
 </body>
 </html>
