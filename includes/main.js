@@ -1,121 +1,119 @@
 // main.js
 
-// Vérification que le JS est chargé
-console.log("Le site est chargé !");
-
-// Smooth scroll pour les liens internes (À propos / Contact)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if(target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
-
-// Exemple : animation simple sur les cartes lors du hover (optionnel)
-const cards = document.querySelectorAll('.card');
-cards.forEach(card => {
-  card.addEventListener('mouseenter', () => {
-    card.style.transform = 'translateY(-5px)';
-    card.style.boxShadow = '0 15px 35px rgba(2,6,23,0.6)';
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'translateY(0)';
-    card.style.boxShadow = '0 10px 30px rgba(2,6,23,0.6)';
-  });
-});
-
 document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("searchInput");
-    const cards = document.querySelectorAll(".card-link");
 
-    input.addEventListener("input", () => {
-        const query = input.value.toLowerCase().trim();
+    console.log("Le site est chargé !");
 
-        cards.forEach(cardLink => {
-            const card = cardLink.querySelector(".card");
-            const nom = card.dataset.nom;
-            const tag = card.dataset.tag;
-
-            const match =
-                nom.includes(query) ||
-                tag.includes(query);
-
-            cardLink.style.display = match ? "block" : "none";
+    /* =========================
+       Smooth scroll
+    ========================== */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
         });
     });
-});
 
-document.addEventListener("DOMContentLoaded", () => {
+    /* =========================
+       Animation hover cartes
+    ========================== */
+    const simpleCards = document.querySelectorAll('.card');
+    simpleCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+            card.style.boxShadow = '0 15px 35px rgba(2,6,23,0.6)';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = '0 10px 30px rgba(2,6,23,0.6)';
+        });
+    });
 
+    /* =========================
+       Recherche + Filtres (articles.php uniquement)
+    ========================== */
     const input = document.getElementById("searchInput");
-    const cards = document.querySelectorAll(".card-link");
+    const cardLinks = document.querySelectorAll(".card-link");
     const checkboxes = document.querySelectorAll(".filter-checkbox");
 
     const dropdownBtn = document.getElementById("dropdownBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
 
-    // Ouvrir / fermer menu
-    dropdownBtn.addEventListener("click", () => {
-        dropdownMenu.classList.toggle("active");
-    });
+    // 👉 Si on n’est pas sur la page articles, on arrête ici
+    if (input && cardLinks.length > 0) {
 
-    // Fermer si clic extérieur
-    document.addEventListener("click", (e) => {
-        if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-            dropdownMenu.classList.remove("active");
+        function filterArticles() {
+            const query = input.value.toLowerCase().trim();
+
+            const selectedTags = Array.from(checkboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            cardLinks.forEach(cardLink => {
+                const card = cardLink.querySelector(".card");
+                if (!card) return;
+
+                const nom = card.dataset.nom || "";
+                const tag = card.dataset.tag || "";
+
+                const matchSearch =
+                    nom.includes(query) ||
+                    tag.includes(query);
+
+                const matchTag =
+                    selectedTags.length === 0 ||
+                    selectedTags.includes(tag);
+
+                cardLink.style.display =
+                    matchSearch && matchTag ? "block" : "none";
+            });
         }
-    });
 
-    function filterArticles() {
-        const query = input.value.toLowerCase().trim();
+        input.addEventListener("input", filterArticles);
+        checkboxes.forEach(cb =>
+            cb.addEventListener("change", filterArticles)
+        );
 
-        const selectedTags = Array.from(checkboxes)
-            .filter(cb => cb.checked)
-            .map(cb => cb.value);
+        // Dropdown sécurisé
+        if (dropdownBtn && dropdownMenu) {
 
-        cards.forEach(cardLink => {
-            const card = cardLink.querySelector(".card");
-            const nom = card.dataset.nom;
-            const tag = card.dataset.tag;
+            dropdownBtn.addEventListener("click", () => {
+                dropdownMenu.classList.toggle("active");
+            });
 
-            const matchSearch =
-                nom.includes(query) ||
-                tag.includes(query);
+            document.addEventListener("click", (e) => {
+                if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.classList.remove("active");
+                }
+            });
 
-            const matchTag =
-                selectedTags.length === 0 ||
-                selectedTags.includes(tag);
+        }
+    }
 
-            cardLink.style.display =
-                matchSearch && matchTag ? "block" : "none";
+    /* =========================
+       Bouton retour en haut
+    ========================== */
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    if (scrollBtn) {
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = "flex";
+            } else {
+                scrollBtn.style.display = "none";
+            }
+        });
+
+        scrollBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
         });
     }
 
-    input.addEventListener("input", filterArticles);
-    checkboxes.forEach(cb =>
-        cb.addEventListener("change", filterArticles)
-    );
-
-});
-
-const scrollBtn = document.getElementById("scrollTopBtn");
-
-// Affichage au scroll
-window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-        scrollBtn.style.display = "flex";
-    } else {
-        scrollBtn.style.display = "none";
-    }
-});
-
-// Scroll fluide vers le haut
-scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 });
