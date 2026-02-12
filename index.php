@@ -3,7 +3,7 @@
 
 <?php
 $pageTitle = "Pernois Matériaux";
-require_once "header.php";
+require_once "includes/header.php";
 ?>
 
 
@@ -78,7 +78,7 @@ require_once "header.php";
 
 </main>
 
-<?php require_once "footer.php"; ?>
+<?php require_once "includes/footer.php"; ?>
 
 </body>
 </html>

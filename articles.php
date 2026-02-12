@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Connexion à la base de données
-require_once __DIR__ . '/bdd.php';
+require_once __DIR__ . '/includes/bdd.php';
 
 // Récupération de tous les articles
 $stmt = $pdo->query("SELECT * FROM article");
@@ -19,7 +19,7 @@ $tags = $stmtTags->fetchAll(PDO::FETCH_COLUMN);
 
 <?php
 $pageTitle = "Tous les articles - Pernois Matériaux";
-require_once "header.php";
+require_once "includes/header.php";
 ?>
 
 <main class="container">
@@ -104,7 +104,7 @@ require_once "header.php";
 </button>
 
 
-<?php require_once "footer.php"; ?>
+<?php require_once "includes/footer.php"; ?>
 
 </body>
 </html>

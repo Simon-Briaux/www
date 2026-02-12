@@ -4,6 +4,6 @@
     </div>
 </footer>
 
-<script src="main.js"></script>
+<script src="/includes/main.js"></script>
 </body>
 </html>
