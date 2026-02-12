@@ -28,7 +28,14 @@ if (session_status() === PHP_SESSION_NONE) {
             </a>
         </div>
 
+        <?php
+            require_once __DIR__ . "/auth.php";
+        ?>
+
         <nav>
+            <?php if (isAdmin()): ?> 
+                <a href="/admin/dashboard.php">Admin</a>
+            <?php endif; ?> 
             <a href="/index.php">Accueil</a>
             <a href="/articles.php">Articles</a>
             <a href="/index.php#about">À propos</a>
