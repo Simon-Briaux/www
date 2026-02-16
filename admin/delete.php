@@ -5,7 +5,7 @@ require_once "../includes/bdd.php";
 
 $id = $_GET["id"];
 
-$stmt = $pdo->prepare("DELETE FROM articles WHERE id = ?");
+$stmt = $pdo->prepare("DELETE FROM article WHERE id = ?");
 $stmt->execute([$id]);
 
 header("Location: dashboard.php");

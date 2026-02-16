@@ -518,3 +518,16 @@ footer {
     text-decoration: none;
     border-radius: 6px;
 }
+
+.search-form {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 250px;
+}
