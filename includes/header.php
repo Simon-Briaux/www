@@ -1,5 +1,4 @@
 <?php
-// Sécurité minimale (optionnel mais propre)
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -11,12 +10,14 @@ if (session_status() === PHP_SESSION_NONE) {
     <title><?= isset($pageTitle) ? $pageTitle : "Pernois Matériaux" ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/Images/Logo.jpg" type="image/jpg">
-    <!-- SEO basique -->
+
     <meta name="description" content="Pernois Matériaux - Vente de matériaux de construction">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="includes/style.css">
+    <link rel="stylesheet" href="/includes/style.css">
 
+    <!-- JS -->
+    <script src="/includes/main.js" defer></script>
 </head>
 <body>
 
@@ -28,14 +29,15 @@ if (session_status() === PHP_SESSION_NONE) {
             </a>
         </div>
 
-        <?php
-            require_once __DIR__ . "/auth.php";
-        ?>
+        <?php require_once __DIR__ . "/auth.php"; ?>
 
         <nav>
-            <?php if (isAdmin()): ?> 
+            <?php if (isAdmin()): ?>
                 <a href="/admin/dashboard.php">Admin</a>
-            <?php endif; ?> 
+            <?php else: ?>
+                <a href="/admin/login.php">Connexion</a>
+            <?php endif; ?>
+
             <a href="/index.php">Accueil</a>
             <a href="/articles.php">Articles</a>
             <a href="/index.php#about">À propos</a>

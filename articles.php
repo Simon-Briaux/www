@@ -72,7 +72,6 @@ require_once "includes/header.php";
         <?php if (count($articles) > 0): ?>
             <?php foreach ($articles as $a): ?>
 
-                <a href="article.php?id=<?= $a['id'] ?>" class="card-link">
                     <article 
                         class="card"
                         data-nom="<?= strtolower($a['nom']) ?>"
