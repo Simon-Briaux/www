@@ -16,8 +16,6 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- CSS -->
     <link rel="stylesheet" href="/includes/style.css">
 
-    <!-- JS -->
-    <script src="/includes/main.js" defer></script>
 </head>
 <body>
 
