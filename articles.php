@@ -50,6 +50,7 @@ require_once "includes/header.php";
             </button>
 
             <div id="dropdownMenu" class="dropdown-menu">
+
                 <?php foreach ($tags as $tag): ?>
                     <label class="dropdown-item">
                         <input 
@@ -72,20 +73,18 @@ require_once "includes/header.php";
         <?php if (count($articles) > 0): ?>
             <?php foreach ($articles as $a): ?>
 
-                    <article 
-                        class="card"
-                        data-nom="<?= strtolower($a['nom']) ?>"
-                        data-tag="<?= strtolower($a['mot_classement']) ?>"
-                    >
-                        <span class="tag">
-                            <?= htmlspecialchars($a['mot_classement']) ?>
-                        </span>
-
-                        <div class="title">
-                            <?= htmlspecialchars($a['nom']) ?>
-                        </div>
-                    </article>
-                </a>
+                <article 
+                    class="card"
+                    data-nom="<?= strtolower($a['nom']) ?>"
+                    data-tag="<?= strtolower($a['mot_classement']) ?>"
+                >
+                <span class="tag">
+                    <?= htmlspecialchars($a['mot_classement']) ?>
+                </span>
+                <div class="title">
+                    <?= htmlspecialchars($a['nom']) ?>
+                </div>
+                </article>
 
             <?php endforeach; ?>
         <?php else: ?>

@@ -1,5 +1,3 @@
-// main.js
-
 document.addEventListener("DOMContentLoaded", () => {
 
     console.log("Le site est chargé !");
@@ -33,28 +31,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
-       Recherche + Filtres (articles.php uniquement)
+       Recherche + Filtres
     ========================== */
-    const input = document.getElementById("searchInput");
-    const cardLinks = document.querySelectorAll(".card-link");
-    const checkboxes = document.querySelectorAll(".filter-checkbox");
 
+    const input = document.getElementById("searchInput");
+    const cards = document.querySelectorAll(".card");
+    const checkboxes = document.querySelectorAll(".filter-checkbox");
     const dropdownBtn = document.getElementById("dropdownBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
 
-    // 👉 Si on n’est pas sur la page articles, on arrête ici
-    if (input && cardLinks.length > 0) {
+    if (input) {
 
         function filterArticles() {
+
             const query = input.value.toLowerCase().trim();
 
             const selectedTags = Array.from(checkboxes)
                 .filter(cb => cb.checked)
-                .map(cb => cb.value);
+                .map(cb => cb.value.toLowerCase());
 
-            cardLinks.forEach(cardLink => {
-                const card = cardLink.querySelector(".card");
-                if (!card) return;
+            cards.forEach(card => {
 
                 const nom = card.dataset.nom || "";
                 const tag = card.dataset.tag || "";
@@ -67,8 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     selectedTags.length === 0 ||
                     selectedTags.includes(tag);
 
-                cardLink.style.display =
-                    matchSearch && matchTag ? "block" : "none";
+                card.style.display =
+                    matchSearch && matchTag ? "" : "none";
             });
         }
 
@@ -77,35 +73,35 @@ document.addEventListener("DOMContentLoaded", () => {
             cb.addEventListener("change", filterArticles)
         );
 
-        // Dropdown sécurisé
+        /* Dropdown */
+
         if (dropdownBtn && dropdownMenu) {
 
-            dropdownBtn.addEventListener("click", () => {
+            dropdownBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
                 dropdownMenu.classList.toggle("active");
             });
 
             document.addEventListener("click", (e) => {
-                if (!dropdownBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                if (!dropdownBtn.contains(e.target) &&
+                    !dropdownMenu.contains(e.target)) {
                     dropdownMenu.classList.remove("active");
                 }
             });
-
         }
     }
 
     /* =========================
        Bouton retour en haut
     ========================== */
+
     const scrollBtn = document.getElementById("scrollTopBtn");
 
     if (scrollBtn) {
 
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-                scrollBtn.style.display = "flex";
-            } else {
-                scrollBtn.style.display = "none";
-            }
+            scrollBtn.style.display =
+                window.scrollY > 300 ? "flex" : "none";
         });
 
         scrollBtn.addEventListener("click", () => {
