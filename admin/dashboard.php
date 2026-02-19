@@ -9,22 +9,17 @@ require_once "../includes/bdd.php";
 $pageTitle = "Dashboard Admin";
 require_once __DIR__ . "/../includes/header.php";
 
-// Récupération de la recherche si elle existe
-$search = $_GET["search"] ?? "";
+/* =========================
+   Récupération des articles
+========================= */
+$stmt = $pdo->query("SELECT * FROM article ORDER BY id ASC");
+$articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Récupération des articles filtrés si recherche
-if (!empty($search)) {
-    $stmt = $pdo->prepare("
-        SELECT * FROM article 
-        WHERE nom LIKE ? OR mot_classement LIKE ?
-        ORDER BY id ASC
-    ");
-    $stmt->execute(["%$search%", "%$search%"]);
-} else {
-    $stmt = $pdo->query("SELECT * FROM article ORDER BY id ASC");
-}
-
-$articles = $stmt->fetchAll();
+/* =========================
+   Récupération des catégories
+========================= */
+$stmtTags = $pdo->query("SELECT DISTINCT mot_classement FROM article");
+$tags = $stmtTags->fetchAll(PDO::FETCH_COLUMN);
 ?>
 
 <main class="container">
@@ -35,15 +30,56 @@ $articles = $stmt->fetchAll();
         <a href="logout.php" class="logout-btn">⎋ Se déconnecter</a>
     </div>
 
-    <!-- BARRE DE RECHERCHE -->
-    <form method="GET" class="search-form">
-        <input type="text" name="search" 
-               placeholder="Rechercher un article ou catégorie..."
-               value="<?= htmlspecialchars($search) ?>">
-        <button type="submit" class="btn-primary">Rechercher</button>
-    </form>
+    <!-- =========================
+         BARRE DE RECHERCHE (LIVE)
+    ========================== -->
 
-    <table class="admin-table">
+    <div class="filters-container">
+
+        <!-- Recherche -->
+        <div class="search-bar">
+            <input 
+                type="text" 
+                id="searchInput"
+                placeholder="Rechercher un article..."
+                autocomplete="off"
+            >
+        </div>
+
+        <!-- Dropdown catégories -->
+        <div class="dropdown">
+
+            <button type="button" id="dropdownBtn" class="dropdown-btn">
+                Catégories ▼
+            </button>
+
+            <div id="dropdownMenu" class="dropdown-menu">
+
+                <?php foreach ($tags as $tag): ?>
+                    <label class="dropdown-item">
+
+                        <input 
+                            type="checkbox" 
+                            class="filter-checkbox"
+                            value="<?= strtolower($tag) ?>"
+                        >
+
+                        <?= htmlspecialchars($tag) ?>
+
+                    </label>
+                <?php endforeach; ?>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         TABLE ARTICLES
+    ========================== -->
+
+    <table class="admin-table" id="articlesTable">
         <tr>
             <th>ID</th>
             <th>Nom</th>
@@ -53,12 +89,23 @@ $articles = $stmt->fetchAll();
 
         <?php if (count($articles) > 0): ?>
             <?php foreach ($articles as $article): ?>
-            <tr>
+
+            <tr 
+                class="article-row"
+                data-nom="<?= strtolower($article["nom"]) ?>"
+                data-tag="<?= strtolower($article["mot_classement"]) ?>"
+            >
                 <td><?= $article["id"] ?></td>
+
                 <td><?= htmlspecialchars($article["nom"] ?? '') ?></td>
+
                 <td><?= htmlspecialchars($article["mot_classement"] ?? '') ?></td>
+
                 <td>
-                    <a href="edit.php?id=<?= $article["id"] ?>" class="btn-edit">Modifier</a>
+                    <a href="edit.php?id=<?= $article["id"] ?>" class="btn-edit">
+                        Modifier
+                    </a>
+
                     <a href="delete.php?id=<?= $article["id"] ?>"
                        class="btn-delete"
                        onclick="return confirm('Supprimer cet article ?')">
@@ -66,13 +113,16 @@ $articles = $stmt->fetchAll();
                     </a>
                 </td>
             </tr>
+
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
                 <td colspan="4">Aucun article trouvé.</td>
             </tr>
         <?php endif; ?>
+
     </table>
+
 </main>
 
 <?php require_once __DIR__ . "/../includes/footer.php"; ?>

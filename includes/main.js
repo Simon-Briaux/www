@@ -31,65 +31,86 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
-       Recherche + Filtres
-    ========================== */
+   Recherche + Filtres
+========================= */
 
-    const input = document.getElementById("searchInput");
-    const cards = document.querySelectorAll(".card");
-    const checkboxes = document.querySelectorAll(".filter-checkbox");
-    const dropdownBtn = document.getElementById("dropdownBtn");
-    const dropdownMenu = document.getElementById("dropdownMenu");
+const input = document.getElementById("searchInput");
+const cards = document.querySelectorAll(".card");
+const rows = document.querySelectorAll(".article-row");
+const checkboxes = document.querySelectorAll(".filter-checkbox");
+const dropdownBtn = document.getElementById("dropdownBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
 
-    if (input) {
+if (input) {
 
-        function filterArticles() {
+    function filterArticles() {
 
-            const query = input.value.toLowerCase().trim();
+        const query = input.value.toLowerCase().trim();
 
-            const selectedTags = Array.from(checkboxes)
-                .filter(cb => cb.checked)
-                .map(cb => cb.value.toLowerCase());
+        const selectedTags = Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value.toLowerCase());
 
-            cards.forEach(card => {
+        /* ===== VERSION CARDS (articles.php) ===== */
+        cards.forEach(card => {
 
-                const nom = card.dataset.nom || "";
-                const tag = card.dataset.tag || "";
+            const nom = card.dataset.nom || "";
+            const tag = card.dataset.tag || "";
 
-                const matchSearch =
-                    nom.includes(query) ||
-                    tag.includes(query);
+            const matchSearch =
+                nom.includes(query) ||
+                tag.includes(query);
 
-                const matchTag =
-                    selectedTags.length === 0 ||
-                    selectedTags.includes(tag);
+            const matchTag =
+                selectedTags.length === 0 ||
+                selectedTags.includes(tag);
 
-                card.style.display =
-                    matchSearch && matchTag ? "" : "none";
-            });
-        }
+            card.style.display =
+                matchSearch && matchTag ? "" : "none";
+        });
 
-        input.addEventListener("input", filterArticles);
-        checkboxes.forEach(cb =>
-            cb.addEventListener("change", filterArticles)
-        );
+        /* ===== VERSION TABLE (dashboard.php) ===== */
+        rows.forEach(row => {
 
-        /* Dropdown */
+            const nom = row.dataset.nom || "";
+            const tag = row.dataset.tag || "";
 
-        if (dropdownBtn && dropdownMenu) {
+            const matchSearch =
+                nom.includes(query) ||
+                tag.includes(query);
 
-            dropdownBtn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                dropdownMenu.classList.toggle("active");
-            });
+            const matchTag =
+                selectedTags.length === 0 ||
+                selectedTags.includes(tag);
 
-            document.addEventListener("click", (e) => {
-                if (!dropdownBtn.contains(e.target) &&
-                    !dropdownMenu.contains(e.target)) {
-                    dropdownMenu.classList.remove("active");
-                }
-            });
-        }
+            row.style.display =
+                matchSearch && matchTag ? "" : "none";
+        });
     }
+
+    input.addEventListener("input", filterArticles);
+    checkboxes.forEach(cb =>
+        cb.addEventListener("change", filterArticles)
+    );
+
+    /* Dropdown */
+
+    if (dropdownBtn && dropdownMenu) {
+
+        dropdownBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle("active");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!dropdownBtn.contains(e.target) &&
+                !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove("active");
+            }
+        });
+    }
+}
+
 
     /* =========================
        Bouton retour en haut

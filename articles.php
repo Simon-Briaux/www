@@ -63,7 +63,6 @@ require_once "includes/header.php";
                 <?php endforeach; ?>
             </div>
         </div>
-
     </div>
 
 
@@ -90,9 +89,7 @@ require_once "includes/header.php";
         <?php else: ?>
             <p>Aucun article disponible pour le moment.</p>
         <?php endif; ?>
-
     </section>
-
 </main>
 
 
