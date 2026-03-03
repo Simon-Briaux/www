@@ -531,3 +531,62 @@ footer {
     border: 1px solid #ccc;
     width: 250px;
 }
+
+/* ===============================
+   FORMULAIRES ADMIN (ADD / EDIT)
+================================= */
+
+form {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Champs input plus grands */
+form input[type="text"] {
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+form input[type="text"]:focus {
+    border-color: var(--green-main);
+    box-shadow: 0 0 0 4px rgba(47,107,79,0.15);
+    outline: none;
+}
+
+/* Bouton principal large */
+form .btn-primary {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+/* Effet hover amélioré */
+form .btn-primary:hover {
+    background: var(--green-light);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* Titre plus espacé */
+.admin-form-page h1 {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--green-main);
+}

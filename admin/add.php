@@ -19,7 +19,7 @@ $pageTitle = "Ajouter un article";
 require_once __DIR__ . "/../includes/header.php";
 ?>
 
-<main class="container">
+<main class="container admin-form-page">
     <h1>Ajouter un article</h1>
 
     <form method="POST">
